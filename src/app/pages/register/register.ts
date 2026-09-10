@@ -4,40 +4,42 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [FormsModule, MatInputModule, MatButtonModule, MatCardModule, RouterLink],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
+  templateUrl: './register.html',
+  styleUrl: './register.css',
 })
-export class LoginComponent {
-
+export class RegisterComponent {
+  // 3 variables, inputs, fullName, email, password
+  fullName: string = '';
   email: string = '';
   password: string = '';
 
   errorMessage: string = '';
+  successMessage: string = '';
 
   isLoading: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onLogin (): void {
+  onRegister() {
     this.errorMessage = '';
+    this.successMessage = '';
     this.isLoading = true;
 
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response) => {
-        //Guardamos el token en el localstorage
-        this.authService.saveToken(response.token);
-        //Mover al usuario a la pantalla de notas
-        this.router.navigate(['/notes']);
+    this.authService.register(this.fullName, this.email, this.password).subscribe({
+      next: result => {
+        this.successMessage = 'Cuenta creada. Ahora inicia sesion.';
+        this.isLoading = false;
+        setTimeout(()=> this.router.navigate(['/login']), 1500);
       },
-      error: () =>{
-        this.errorMessage = 'Crendenciales invalidas, Intenta de nuevo';
+      error: (err) => {
+        this.errorMessage = err.error?.message || 'Error al registrar, Intenta de nuevo';
         this.isLoading = false;
       }
     })
