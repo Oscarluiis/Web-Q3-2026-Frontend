@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatInputModule, MatButtonModule, MatCardModule, RouterLink],
+  imports: [FormsModule, MatInputModule, MatButtonModule, MatCardModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
