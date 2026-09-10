@@ -1,0 +1,39 @@
+<div class="register-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Crear Cuenta</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <mat-card-field appeareance="outline">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput type="text" [(ngModel)]="fullName" placeholder="Tu nombre" />
+      </mat-card-field>
+
+      <mat-card-field appeareance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" [(ngModel)]="email" placeholder="tu@email.com" />
+      </mat-card-field>
+
+      <mat-card-field appeareance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" [(ngModel)]="password" placeholder="******" />
+      </mat-card-field>
+
+      @if (errorMessage){
+        <p class="error">{{ errorMessage }}</p>
+      }
+
+      @if (successMessage){
+        <p class="success">{{ successMessage }}</p>
+      }
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onRegister()" [disabled]="isLoading">
+        {{ isLoading ? 'Creando...' : 'Registrarse' }}
+      </button>
+      <a routerLink="/login">¿Ya tienes una cuenta? Inicia Sesion</a>
+    </mat-card-actions>
+  </mat-card>
+</div>
